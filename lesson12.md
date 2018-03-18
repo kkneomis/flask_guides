@@ -117,3 +117,35 @@ If it is done properly, when you run your application, you will be able to navig
 ![Handling Form Values ](img/lesson12c.png)
 
 ## What is Going On
+
+
+On almost any web application, there are pieces of the web page that are duplicated from one page to another. Generally, a site has similar footers, headers and navbars on every page. Building and maintaining a site like this can be challenging when code has to be edited in the exact same way on several different pages.
+
+Page fragments are a way to minimize the confusion. By defining one footer as the footer that is used on every page, it means that all the footers start out the same. It also means that when you change that footer fragment, that the footers on all pages change automatically.
+
+### base.html
+
+In **base.html** we are defining out default layouts which our other pages will inherit. 
+
+```
+{% for message in get_flashed_messages() %}
+    {{ message }}
+{% endfor %}
+```
+This is the jinja syntax for flashing messages to the user. We can use this to display error and warning messages to the user whenever something goes wrong. That way, our user doesn't have to wonder why the application is not behaving as expected.
+
+```
+{% block body %}{% endblock %}
+```
+Here, we are letting jinja know that we will replace with content with our page content from another template.
+
+### page{x}.html
+Our other pages can now inherit the layout of our base template. This include all the stylesheet, javascript files, and general page layout. 
+
+
+First, we include ```{% extends "base.html" %}``` to let jinja know which template we want to extend. Jinja will them render all the content inside our 
+```{% block body %} {% endblock %}``` tags into the congruent tags in the base template.
+
+We can have as many templates as we want inheriting any given base layout. We can also create as many base layouts as we want, or even a tree of layout inheritance.
+
+

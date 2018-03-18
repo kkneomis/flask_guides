@@ -17,13 +17,27 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    name = "Jon Snow"
-    return "Hello world! My name is " + name
+    return "Greetings, universe!"
 
 if __name__ == '__main__':
     app.run()
 ```
-If it is done properly, when you run your application, you will be able to navigate to localhost:5000 and see this:
+
+3. Run your application
+	* To run the application click the run button in the upper right hand corner:
+
+4. View your Application
+	* Open Google Chrome and type in the URL http://localhost:5000 and hit enter. You should see this
+
 ![Running your first Flask Application](img/lesson01.png)
 
 ## What is Going On
+
+In Line 1 of FlaskApp_01.py, we are importing the Flask class into your project that to the @app.route decorator work.
+
+In Line 2, we create a new instance of the flask class. 
+
+@app.route indicates what path or end point the user will visit. The function following this annotation (in this case, the hello_world function) is run each time that the path is accessed.
+Here, the default path is the only path that is specified out.
+
+We use app.run() to run our app on a local server (default port 5000).

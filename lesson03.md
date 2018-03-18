@@ -13,25 +13,24 @@
 	* Make it look like the following
 
 ```python
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route('/main/<user>')
-def main(user):
-    return render_template("index.html", username=user)
 
-@app.route('/')
+@app.route('/loadform')
 def login():
     return render_template("login.html")
 
-@app.route('/processform', methods=['GET', 'POST'])
+
+@app.route('/processform', methods=['POST'])
 def processform():
     user = request.form['user']
-    return redirect(url_for('main', user=user))
+    return render_template("index.html", username=user)
 
 if __name__ == '__main__':
     app.run()
+
 ```
 
 3. Create an index page
@@ -71,7 +70,7 @@ if __name__ == '__main__':
 </html>
 ```
 
-If it is done properly, when you run your application, you will be able to navigate to localhost:5000 and see this:
+If it is done properly, when you run your application, you will be able to navigate to localhost:5000/loadform and see this:
 
 ![Running your first Flask Application](img/lesson03a.png)
 
@@ -79,3 +78,13 @@ Once you submit the form, you should see this:
 
 ![Running your first Flask Application](img/lesson03b.png)
 ## What is Going On
+
+The **“/loadform”** path displays the template "login.html" to the user. The form on this page sends the user input (whatever gets typed in the form and submmited) in a POST request to the ```processform()``` function. 
+
+Within the html template, ```action="{{ url_for('processform') }}"``` tells the template where to send the data. When rendering the html template, Jinja looks for the url mapped to the "processform" function. In this case, it is **"/processform"**. SO when the template is rendered, it will actually show up as ```action="/processform"```. Thus, if we wanted, we could also use the latter method to direct the form.  
+
+```method="POST"``` tells the form to send the data in a post request. When the information is send as part of an HTTP request, the form information will be stored in the request body. It will be (mostly) invisible to the application user. If, instead, we used a GET request, the information send would be sent and appended to the url. [Learn more about GET and POST requests here](https://www.w3schools.com/tags/ref_httpmethods.asp).
+
+The ```processform()``` function only  processes post requests. It takes the value of the "user" input of the incoming requests and renders it on the page.
+
+In the template, ```{{ username }}``` indicates value of the variable we rendered into the template.

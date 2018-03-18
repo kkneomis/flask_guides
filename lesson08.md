@@ -9,10 +9,11 @@
     
 2. Sign up for a Cloudinary account (www.cloudinary.com) if you do not already have one 
 
-3. You can install Cloudinary's module using either easy_install or pip package management tools:
-```pip install cloudinary```.
-If you are using PyCharm, you may also install using the gui.
-```Pycharm > Preferences > Project Interpreter > Click plus > search cloudinary > Install package```
+3. Install Cloudinary's module 
+	* ```Pycharm > Preferences > Project Interpreter > Click plus > search cloudinary > Install package```
+
+4. Import the werkzeug module
+	* ```Pycharm > Preferences > Project Interpreter > Click plus > search werkzeug > Install package```
 
 3. Create a file in the root directory named config.py
     * Put your environment variables in the config.py file like so:
@@ -67,15 +68,19 @@ def add():
 def processform():
     content = request.form['content']
     f = request.files['image']
-    filename = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename))
+    
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filepath))
     f.save(filename)
+    
     res = cloudinary.uploader.upload_large(filename, resource_type="auto")
     img_url = res['secure_url']
-
-    os.remove(filename)
     post = Post(content, img_url)
+    
     db.session.add(post)
     db.session.commit()
+    
+    # cleanup
+    os.remove(filename)
 
     return redirect(url_for('index'))
 
@@ -151,3 +156,59 @@ Once you submit your form, you will be redirected to your image on the main page
 
 
 ## What is Going On
+
+Congratulations! If you've made it this far, you're ready to start using your first third party API. Cloudinary is an application that allows you to upload and transform images, so you can allow your users to filter images, re-shape them, add text, and have a lot of fun using the additional options that come for 'free' with this application. 
+
+This is a sample of things you can do with Cloudinary (http://www.cloudinary.com/cookbook)
+Have fun!
+
+All you need to do is upload the image to the Cloudianry server, and apply as many styles as you would like to to transform the image. 
+
+You will need to add the Cloudinary dependency so that you can create an instance of the Cloudinary class. This creates a way for your code to access all of the methods it needs to be able to 'talk to' the Cloudinary server. 
+
+In this example, we're creating a database of posts with images, so we need to have some content, and a link to the corresponding images, which will be uploaded via our application and saved to the Cloudinary server.
+
+### Config.py
+In this file, we store our cloudinary api keys and secrets. We can still access them from our main python file. By keeping this out of our main python file, we can choose hide it from the public when committing the project to a version control system (e.g. github).
+
+
+### The Post Model 
+This is a simple class that saves information about the post. 
+
+## The View
+### index.html
+This displays post's content and image. The image is displayed using an image tag. 
+
+### form.html 
+This form allows a user to upload files. 
+
+```
+<input type="file">
+```
+indicates that a file is expected, and 
+
+```
+ enctype="multipart/form-data"
+```
+indicates that additional data is going to be posted with the form (i.e. the picture). This means that the post variables for the form will include the file which is uploaded. The uploaded file can be processed, as you will see in the processform method.
+
+## The Controllers
+
+### @app.route("/")
+This route lists all of the posts in the database and displays their images using index.html. 
+
+### @app.route("/add")
+This route allowes users input posts details through form.html. The data is sent in a POST request to the processform() function.
+
+
+### @app.route("/processform")
+This is where the magic happens. Once a user clicks 'submit' on form.html, then the details are submitted to the processform function. Here we take the file from the request form body and save it to a local **/tmp/** (temporary) folder. We then upload the file from that folder to cloudinary, which returns to us the uploaded image's cloudinary url.
+
+Using this new image url and the post content from the request, we create a new Post object and commit it to the database.
+
+Finally, we delete the temporary image we saved.
+
+The user is then returned to the default route and should see the list of posts and their images. 
+
+
+
