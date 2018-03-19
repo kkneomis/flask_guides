@@ -106,6 +106,6 @@ If you navigate to localhost:5000, you will see all the names you have added.
 
 In this lesson, we use an html form to allow users to add people to the database (instead of hardcoding the people in our controller).
 
-The ```/add``` route is mapped to the form.html page which allows users to enter a first and last name for the person to be added. This information is sent in a POST request to the ```processform()``` function. In this function, we grab the firstname and lastname values from the request body and use them create a Person objects. These objects is stored to the database. ```redirect(url_for('index'))``` sends us to the route mapped to the index function (the home page) once the objects are created.
+The ```/add``` route renders the form.html page which allows users to enter a first and last name for the person to be added. This information is sent in a POST request to the ```processform()``` function. In this function, we grab the firstname and lastname values from the request form and use them create a Person objects. These objects are stored to the database. ```redirect(url_for('index'))``` sends us to the route mapped to the index function (the home page) once the objects are created.
 
 In the index page, we loop through all the people in our database and print the first and last name of each person.

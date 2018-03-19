@@ -59,13 +59,13 @@ If it is done properly, when you run your application, you will be able to navig
 
 Flask uses Jinja2 to parse templates and render variables. 
 
-In the start function of FlaskApp_02.py, we are passing data to the template using the render_template method to be rendered by jinja. This method requires the name of your html template as its first argument, and the data your would like to display in subsequent arguments. Data of any type can be passed from your function to the view (strings, lists, dictionaries, etc.) Here, we are passing in a string and a list.
+In the start function of FlaskApp_02.py, we are passing data to the template using the render_template method to be rendered by Jinja. ThiJinjas method requires the name of your html template as its first argument, and the data your would like to display in subsequent arguments. Data of any type can be passed from your function to the view (strings, lists, dictionaries, etc.) Here, we are passing in a string and a list.
 
 Jinja looks for your template in the templates folder by default. By convention, we can also include stylesheets and javascript files in the static folder. These will be explored in a later lesson.
 
-The ```{{ }}``` syntax in a our index template tells jinja that we are going to include an invidual variable. Jinja will render the variable given into the template as is. In other words, you are using this variable expression to tell the template that text should be displayed within the paragraph tag, and that the text should be the value of the object called favorite_character.
+The ```{{ }}``` syntax in our index template tells Jinja that we are going to include an invidual variable. Jinja will render the variable given into the template as is. In other words, you are using this variable expression to tell the template that text should be displayed within the paragraph tag, and that the text should be the value of the object called favorite_character.
 
-If we want to run python code inside the template (e.g. to do something more complex), we use the ```{% %}``` syntax. In this case, we are looping through a list of strings and rendering each string in that list. 
+If, instead, we want to incluse logic inside the template (e.g. to do something more complex), we use the ```{% %}``` syntax. In this case, we are looping through a list of strings and rendering each string in that list. 
 
 
 

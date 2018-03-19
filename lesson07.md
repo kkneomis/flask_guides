@@ -171,40 +171,40 @@ If you navigate to localhost:5000, you will see all the people you have added. Y
 Congratulations on your first 'full' application! You can now add data to the database, as well as review, modify and delete it. 
 
 ### Model 
-Like the previous exercises, the Person class acts as the database model for the data that going to be saved. We can create multiple instance of this class and commit them to our databse. The Person class inherits from```db.Model```, which is the baseless class for all SQLalchemy data models. We use **Column** to define the columns in our database table (in this case, the Person table). We can specify which column serves as the primary key, in addition to the column types (String, text, DateTime, etc.) 
+Like the previous exercises, the Person class acts as the database model for the data that going to be saved. We can create multiple instance of this class and commit them to our databse. The Person class inherits from ```db.Model```, which is the baseless class for all SQLalchemy data models. By inheriting from db.Model, we are telling SQL alchemy to create a table based on this class. In addition, we can now define attributes of the table, constrain them, and build relationships between tables. 
+
+We use **db.Column** to define the columns in our database table (in this case, the Person table). We can specify which column serves as the primary key, in addition to the column types (String, text, DateTime, etc.) 
 
 
-### The Controller 
+
+
+## The routes 
 This is where the action happens. Routes are mapped out for each action - Creating, Reading, Updating and Deleting data (CRUD). 
 
-#### The routes 
-
 ##### Default Route (“/”)
-When the user visits this route, the user will see a list of all the person entries that have been made. 
-This is because index function queries the database for all people using the```.query.all()``` and store them in the **people** variable. We then loop through each **person** in **people** and render them in the the view.
-
-
+When the user visits this route, the user will see a list of all the Person entries that have been made. 
+This is because the index function queries the database for all people using ```.query.all()``` and stores them in the **people** variable. We then loop through each **person** in **people** and render them in the view.
 
 #### Add route ("/create")
 When a user visits this route, they have access to a form which allows them to enter a first and last name for a person. This information is sent in a POST request to the ```process()``` function. 
 
- Notice that in the form, we have have a hidden input field with ```{{ person.id }}``` as its name. However, the rendered person is actually None. That's because this field will be used later when we are updating our data. In the spirit of DRY (Don't Repeat Yourself), we are going to use one html form for both functions. 
+ Notice that in **form.html**, we have have a hidden input field with ```{{ person.id }}``` as its name. However, the rendered person is actually None. That's because this field will be used later when we are updating our data. In the spirit of DRY (Don't Repeat Yourself), we are going to use one html form for both functions. 
 
 #### Update route ("/update/<int:id>")
-When a user wants to modify a record, that user can retrieve the details of that record by opening up http://localhost:5000/update, and adding the ID of the user whose record is being modified. The **{id}** parameter in this case is a primary key that exists in the database, because there should be only one record that matches this criterion.
+When a user wants to modify a record, that user can retrieve the details of that record by opening up http://localhost:5000/update, and adding the ID of the user whose record is being modified. The **(id)** parameter in this case is a primary key that exists in the database, because there should be only one record that matches this criterion.
 
-We use ```Person.query.get(id)``` to pull up that record, and it's {id} is passed to the form's hidden field. 
+We use ```Person.query.get(id)``` to pull up that record, and its **(id)** is passed to the form's hidden field. 
 
 #### Process route ("/process")
-This routes receives a POST request form object from **form.html**. This occurs either after a new record is create or an existing object is update. When a new record is created, person is None in the form, so the request has no id attribute. But when a record is being updated, we pass in a valid person id (for the record we want to update). 
+This routes receives a POST request form object from **form.html**. This occurs either after a new record is created or an existing object is updated. When a new record is created, person is None in the form, so the request has no id attribute. But when a record is being updated, we pass in a valid person id (for the record we want to update). 
 
-So we can discern the appropriate case by checking id an if **{id}** exists in the request form object. If it does, we simply update the object using the new values in the form. If there is no **{id}**, we create a new object instead. 
+We can discern the appropriate case by checking if an **(id)** exists in the request form object. If it does, we simply update the object using the new values in the form. If there is no **(id)**, we create a new object instead. 
 
 We use ```db.session.commit()``` to save all our database modifications.
 
 
 ##### Show Route (“/show/<int:id>”)
-When the user visits this route, they will see a specific record based on the id specified in the url. Fask expects the id in that url pattern to be an *integer* 
+When the user visits this route, they will see a specific record based on the id specified in the url. Flask expects the id in that url pattern to be an *integer*.
 
 #### Delete 
 The delete route follows the same pattern, but instead of showing the record, it is immediately deleted from the database. When the user is re-directed to the default route, this will show in the list that is displayed, as that record will not be shown in the list.

@@ -33,11 +33,11 @@ if __name__ == '__main__':
 
 ## What is Going On
 
-In Line 1 of FlaskApp_01.py, we are importing the Flask class into your project that to the @app.route decorator work.
+In Line 1 of FlaskApp_01.py, we are importing the Flask class into our project to make the @app.route decorator work.
 
 In Line 2, we create a new instance of the flask class. 
 
-@app.route indicates what path or end point the user will visit. The function following this annotation (in this case, the hello_world function) is run each time that the path is accessed.
+@app.route indicates what path or endpoint the user will visit. The function following this annotation (in this case, the **hello_world** function) is run each time that the path is accessed.
 Here, the default path is the only path that is specified out.
 
 We use app.run() to run our app on a local server (default port 5000).

@@ -81,12 +81,12 @@ If it is done properly, when you run your application, you will be able to navig
 
 ## What is Going On
 
-In this example we are going to use SQLalchemy to store objects into a local database. SQLalchemy is a python toolkit and Object Relational Mapper (ORM) that allows us to manage relational databases with the flexibility of SQL without writing any SQL code.
+In this example, we are going to use SQLalchemy to store data into a local database. SQLalchemy is a python toolkit and Object Relational Mapper (ORM) that allows us to manage relational databases with the flexibility of SQL without writing any SQL code.
 
 In FlaskApp_05.py, we first define the path of our local database file. In this case, we will place it in the current folder and name it "flaskr.db". Next we define an instance of SQLalchemy class db, which we will use to perform database operations.  
 
 Underneath the index function, we will define a class ```Person``` which will model the Person table in our database. This will allow us to work with database rows as python objects. Here we set the contraints of the columns of the person table, and define "id" as the primary key. The ```__init__``` function allows us to define how the class ```Person``` can be instantiated in the controller. 
 
-In the index function, we will create a series of Person objects and add them to the database. After which, we will query the database for all our people and return render them in the view. In theory, we could render the objects directly in in our template without committing them to the database. However, commiting them makes the data persistence, meaning they it will remain visible even after we restart the application.
+In the index function, we will create a series of Person objects and add them to the database. After which, we will query the database for all our people and render them in the view. In theory, we could render the objects directly in in our template without committing them to the database. However, commiting them makes the data persistence, meaning they will remain visible even after we restart the application.
 
 
