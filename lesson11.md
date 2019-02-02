@@ -11,7 +11,6 @@
 	* Make it look like the following
     
 ```python
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -24,8 +23,9 @@ application.register_blueprint(app)
 
 
 if __name__=='__main__':
+    from app import db
     db.create_all()
-    application.run()
+    application.run(debug=True)
 ```
 2. Create a file called models.py
 	* Make it look like the following
@@ -61,7 +61,6 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Category %r>' % self.name
-
 ```
 
 2. Create a file called routes.py
@@ -91,7 +90,7 @@ def addcategory():
     category = Category(name)
     db.session.add(category)
     db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('app.index'))
 
 @app.route('/addpost', methods=['POST', 'GET'])
 def addpost():
@@ -112,7 +111,6 @@ def addtags():
         post.tags.append(category)
     db.session.commit()
     return redirect(url_for('app.index'))
-
 ```
 
 3. Create an index page
