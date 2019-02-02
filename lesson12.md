@@ -1,7 +1,7 @@
 # Lesson 12 - Using Page Fragments with Jinja
 
 ## Learning Objectives
-* 
+* Learn how to dynamically load different page fragments (e.g. header and footer) to build page.
 
 
 ## The Walkthrough
@@ -46,7 +46,7 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Index</title>
 </head>
 <body>
     <div class="navlinks">
@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
     {% block body %}{% endblock %}
 
-    <div class="footer">copyright 2017</div>
+    <div class="footer">copyright 2019</div>
 </body>
 </html>
 ```
@@ -139,7 +139,7 @@ This is the jinja syntax for flashing messages to the user. We can use this to d
 ```
 Here, we are letting jinja know that we will replace with content with our page content from another template.
 
-### page{x}.html
+### page{1..3}.html
 Our other pages can now inherit the layout of our base template. This include all the stylesheet, javascript files, and general page layout. 
 
 
