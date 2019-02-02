@@ -21,10 +21,10 @@ db = SQLAlchemy(application)
 from routes import app
 application.register_blueprint(app)
 
-
 if __name__=='__main__':
+    from app import db
     db.create_all()
-    application.run()
+    application.run(debug=True)
 ```
 
 2. Create a file called models.py
@@ -33,17 +33,6 @@ if __name__=='__main__':
 ```python
 from app import db
 
-class Category(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return '<Category %r>' % self.name
-        
-        
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(140))
@@ -57,6 +46,17 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % self.content
+
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50))
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<Category %r>' % self.name
 ```
 
 	
@@ -68,37 +68,31 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 app = Blueprint('app', __name__)
 
-from models import Post, Category
 from app import db
+from models import Post, Category
+
 
 @app.route('/')
 def index():
     categories = Category.query.all()
     return render_template("index.html", categories=categories)
 
-
-@app.route('/addcategory', methods=['POST'])
-def add_category():
-    name = request.form['category']
-    category = Category(name)
-    
-    db.session.add(category)
-    db.session.commit()
-    
-    return redirect(url_for('app.index'))
-    
-    
 @app.route('/addpost', methods=['POST', 'GET'])
 def add():
     content = request.form['content']
     category = db.session.query(Category).get(request.form['category'])
     post = Post(content, category)
-    
     db.session.add(post)
     db.session.commit()
-    
     return redirect(url_for('app.index'))
 
+@app.route('/addcategory', methods=['POST'])
+def add_category():
+    name = request.form['category']
+    category = Category(name)
+    db.session.add(category)
+    db.session.commit()
+    return redirect(url_for('app.index'))
 ```
 
 	
@@ -111,7 +105,7 @@ def add():
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View</title>
 </head>
 <body>
 
@@ -119,7 +113,7 @@ def add():
         <h3>{{ category.name }}</h3>
         <ul>
             {% for post in category.posts %}
-                <li>{{ post.content }} - {{ post.category.name }}</li>
+                <li>{{ post.content }}</li>
             {% endfor %}
         </ul>
     {% endfor %}
@@ -144,6 +138,7 @@ def add():
         <input type="submit" value="Submit">
     </form>
 
+
 </body>
 </html>
 ```
@@ -152,7 +147,8 @@ If it is done properly, when you run your application, you will be able to navig
 
 ![Using Database Relationships with Flask/SQLalchemy - OneToMany](img/lesson09a.png)
 
-![Using Database Relationships with Flask/SQLalchemy - OneToMany](img/lesson09b.png)
+The page should allow you to create categories and add multiple items to each category.
+
 
 ## What is Going On
 
