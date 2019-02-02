@@ -18,19 +18,18 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 
 
-@app.route('/loadform')
+@app.route('/')
 def login():
     return render_template("login.html")
 
 
 @app.route('/processform', methods=['POST'])
 def processform():
-    user = request.form['user']
-    return render_template("index.html", username=user)
+    username = request.form['user']
+    return render_template("index.html", username=username)
 
 if __name__ == '__main__':
     app.run()
-
 ```
 
 3. Create an index page
@@ -81,7 +80,7 @@ Once you submit the form, you should see this:
 
 The **“/loadform”** path displays the template "login.html" to the user. The form on this page sends the user input (whatever gets typed in the form and submitted) in a POST request to the ```processform()``` function. 
 
-Within the html template, ```action="{{ url_for('processform') }}"``` tells the template where to send the data. When rendering the html form, Jinja looks for the url mapped to the "processform" function. In this case, it is **"/processform"**. SO when the template is rendered, it will actually show up as ```action="/processform"```. Thus, if we wanted, we could instead use the latter method to direct the form data.  
+Within the html template, ```action="{{ url_for('processform') }}"``` tells the template where to send the data. When rendering the html form, Jinja looks for the url mapped to the "processform" function. In this case, it is **"/processform"**. So when the template is rendered it will actually show up as ```action="/processform"```. Thus, if we wanted, we could instead use the latter method to direct the form data.  
 
 ```method="POST"``` tells the form to send the data in a post request. When the information is sent as part of an HTTP request, the form information will be stored in the request body. It will be (mostly) invisible to the application user. If, instead, we used a GET request, the information sent would be visible in the url. [Learn more about GET and POST requests here](https://www.w3schools.com/tags/ref_httpmethods.asp).
 
