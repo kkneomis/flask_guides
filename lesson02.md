@@ -17,11 +17,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def start():
-    favorite = "Jon Snow"
-    others = ["Danny", "The hound", "Arya", "Night King"]
+    favorite_fruit = "Apple"
+    other_fruits = ["Bananas", "Strawberries", "Tomatoes", "Pineapples"]
     return render_template("index.html",
-                           favorite_character = fave,
-                           other_characters = others)
+                           favorite_fruit = favorite_fruit,
+                           other_fruits = other_fruits)
 
 if __name__ == '__main__':
     app.run()
@@ -37,17 +37,16 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Fruits</title>
 </head>
 <body>
-    <p>My favorite character is <b>{{ favorite_character }}</b>.</p>
+  <p>My favorite fruit is the <b>{{ favorite_fruit }}</b>.</p>
     I also like:
     <ul>
-        {% for character in other_characters %}
-            <li>{{ character }} </li>
+        {% for fruit in other_fruits %}
+            <li>{{ fruit }} </li>
         {% endfor %}
     </ul>
-
 </body>
 </html>
 ```

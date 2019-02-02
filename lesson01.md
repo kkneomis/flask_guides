@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return "Greetings, universe!"
+    return "Hello World!"
 
 if __name__ == '__main__':
     app.run()
@@ -25,9 +25,10 @@ if __name__ == '__main__':
 
 3. Run your application
 	* To run the application click the run button in the upper right hand corner:
+	* Alternatively, you can run the application from the terminal using the command: `python ./FlaskApp_01.py `
 
 4. View your Application
-	* Open Google Chrome and type in the URL http://localhost:5000 and hit enter. You should see this
+	* Open your browser and type in the URL http://localhost:5000 and hit enter. You should see this
 
 ![Running your first Flask Application](img/lesson01.png)
 
