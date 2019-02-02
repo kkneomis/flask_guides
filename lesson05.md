@@ -23,15 +23,11 @@ db = SQLAlchemy(app)
 
 
 @app.route('/')
-def index():
+def start():
 
-    person1 = Person("LeBron", "James"),
-    person2 = Person("Barack", "Obama"),
-    person3 = Person("Bill", "Gates")
-
-    db.session.add(person1)
-    db.session.add(person2)
-    db.session.add(person3)
+    db.session.add(Person("LeBron", "James"))
+    db.session.add(Person("Barack", "Obama"))
+    db.session.add(Person("Bill", "Gates"))
 
     db.session.commit()
 
@@ -50,6 +46,7 @@ class Person(db.Model):
         self.lastname = lastname
 
 if __name__ == '__main__':
+    db.create_all()
     app.run()
 ```
 
@@ -62,13 +59,13 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>People</title>
 </head>
 <body>
-    <h4>These are the coolest people</h4>
+    <h4>These are some famous people</h4>
     <ol>
     {% for person in people %}
-        <li>{{ person.firstname}}, {{ person.lastname }}</li>
+        <li>{{ person.firstname}}, {{ person.lastname}}</li>
     {% endfor %}
     </ol>
 </body>

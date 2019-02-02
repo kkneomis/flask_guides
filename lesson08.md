@@ -109,7 +109,7 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Form</title>
 </head>
 <body>
     <form action="/processform" method="POST" enctype="multipart/form-data" >
@@ -130,7 +130,7 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View</title>
 </head>
 <body>
     <h2>My posts</h2>

@@ -89,7 +89,7 @@ if __name__ == '__main__':
 <htmllang="en">
 <head>
     <metacharset="UTF-8">
-    <title>Title</title>
+    <title>Form</title>
 </head>
 <body>
         <form action="/process" method="POST">

@@ -25,9 +25,11 @@ def index():
     people = Person.query.all()
     return render_template("index.html", people = people)
 
+
 @app.route('/add')
 def add():
     return render_template("form.html")
+
 
 @app.route('/processform', methods=['GET','POST'])
 def processform():
@@ -47,7 +49,9 @@ class Person(db.Model):
         self.firstname = firstname
         self.lastname = lastname
 
+
 if __name__ == '__main__':
+    db.create_all()
     app.run()
 ```
 3. Create a form page
@@ -59,7 +63,7 @@ if __name__ == '__main__':
 <htmllang="en">
 <head>
     <metacharset="UTF-8">
-    <title>Title</title>
+    <title>People</title>
 </head>
 <body>
     <form action="/processform" method="POST">
@@ -79,15 +83,17 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>People</title>
 </head>
 <body>
-    <h4>These are the coolest people</h4>
+    <h4>These are the people on my list</h4>
     <ol>
     {% for person in people %}
-        <li>{{ person.firstname}}, {{ person.lastname}}</li>
+         <li>{{ person.firstname}}, {{ person.lastname}}</li>
     {% endfor %}
     </ol>
+
+    <a href="/add">Add another</a>
 </body>
 </html>
 ```

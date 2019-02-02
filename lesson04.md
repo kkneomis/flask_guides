@@ -38,7 +38,7 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My Songs</title>
 </head>
 <body>
     <form action="{{ url_for('processform') }}" method="POST" >
@@ -63,7 +63,7 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My Songs</title>
 </head>
 <body>
     <p>Name: {{ song.name }} </p>
