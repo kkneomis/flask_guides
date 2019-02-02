@@ -1,7 +1,7 @@
-# Lesson 10 - Using Database Relationships with Flask/SQLalchemy - One to Many
+# Lesson 10 - Using Database Relationships with Flask/SQLalchemy - One to One
 
 ## Learning Objectives
-* Create one to many relationships using SQLalchemy
+* Create one to one relationships using SQLalchemy
 
 ## The Walkthrough
 1. Create a Flask Application
@@ -129,9 +129,8 @@ def add():
 
 If it is done properly, when you run your application, you will be able to navigate to localhost:5000 and see this:
 
-![Using Database Relationships with Flask/SQLalchemy - One to One](img/lesson10a.png)
+![Using Database Relationships with Flask/SQLalchemy - One to One](img/lesson10.png)
 
-![Using Database Relationships with Flask/SQLalchemy - One to One](img/lesson10b.png)
 
 ## What is Going On
 
