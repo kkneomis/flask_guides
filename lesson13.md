@@ -1,7 +1,8 @@
 # Lesson 13 - Basic User Authentication
 
 ## Learning Objectives
-* 
+* Create a basic authentication system allowing users to register accounts and login
+* Create pages only accessible to authenticated users
 
 ## The Walkthrough
 1. Create a Flask Application
@@ -116,7 +117,7 @@ class User(db.Model):
 
 if __name__ == '__main__':
     db.create_all()
-    app.run()
+    app.run(debug=True)
 ```
 
 
@@ -129,7 +130,7 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main</title>
 </head>
 <body>
     <h3>Anyone can see this page</h3>
@@ -157,7 +158,7 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Signin</title>
 </head>
 <body>
 <form action="" method=post class="form-horizontal">
@@ -185,7 +186,7 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create an Account</title>
 </head>
 <body>
 <form action="" method=post class="form-horizontal">
@@ -222,10 +223,13 @@ if __name__ == '__main__':
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Secure</title>
 </head>
 <body>
     <h1>This is a secure page</h1>
+    <p>If you are not logged in, you should not be able to see this
+    <a href="{{ url_for('index') }}">Go Home</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
 </body>
 </html>
 ```

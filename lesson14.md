@@ -1,7 +1,8 @@
 # Lesson 14 - Custom Error Pages
 
 ## Learning Objectives
-* 
+* Give your users helpful feedback when they navigate to pages that do not exist
+* Handle 404 (page not found) errors
 
 ## The Walkthrough
 1. Create a Flask Application
@@ -67,9 +68,9 @@ if __name__ == '__main__':
 
 If it is done properly, when you run your application, you will be able to navigate to localhost:5000 and see this:
 
-![Basic User Authentication](img/lesson14a.png)
+![Basic User Authentication](img/lesson14b.png)
 
 If you visit a page that does not exist (e.g. localhost:5000/youcantfindme) you should see this:
 
-![Basic User Authentication](img/lesson14b.png)
+![Basic User Authentication](img/lesson14a.png)
 
