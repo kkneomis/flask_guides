@@ -23,8 +23,9 @@ application.register_blueprint(app)
 
 
 if __name__=='__main__':
+    from app import db
     db.create_all()
-    application.run()
+    application.run(debug=True)
 
 ```
 
@@ -100,12 +101,11 @@ def add():
     
     
 ```html
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View</title>
 </head>
 <body>
 
@@ -124,7 +124,6 @@ def add():
 
 </body>
 </html>
-
 ```
 
 If it is done properly, when you run your application, you will be able to navigate to localhost:5000 and see this:
